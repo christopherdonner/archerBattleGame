@@ -10,7 +10,7 @@ var character1 = {
     id: 1,
     name: "Freddy",
     hp: 120,
-    currentCharacter: false,
+    isCurrentCharacter: false,
     currentEnemy: false,
     isAlive: true
 
@@ -20,7 +20,7 @@ var character2 = {
     id: 2,
     name: "Daphne",
     hp: 100,
-    currentCharacter: false,
+    isCurrentCharacter: false,
     isCurrentEnemy: false,
     isAlive: true
 }
@@ -29,7 +29,7 @@ var character3 = {
     id: 3,
     name: "Shaggy",
     hp: 150,
-    currentCharacter: false,
+    isCurrentCharacter: false,
     isCurrentEnemy: false,
     isAlive: true
 }
@@ -38,7 +38,7 @@ var character4 = {
     id: 4,
     name: "Velma",
     hp: 80,
-    currentCharacter: false,
+    isCurrentCharacter: false,
     isCurrentEnemy: false,
     isAlive: true
 }
@@ -95,6 +95,7 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                 if(currentCharacter==="character1")
                     {
                         currentCharacter=character1;
+                        character1.isCurrentCharacter=true
                         enemyCombatants=["character2","character3","character4"]
                         $("#character1").clone().appendTo(".current_character")
                         $("#character1").empty();
@@ -108,14 +109,19 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                 else if (currentCharacter==="character2")
                     {
                             currentCharacter=character2;
+                            character2.is
                             enemyCombatants=["character1","character3","character4"]
                             $("#character2").clone().appendTo(".current_character")
-                            $("#character1").empty();
                             $("#character2").empty();
-                            $("#character3").empty();
-                            $("#character4").empty();
-                            
-                    }
+                        for(i=0;i<enemyCombatants.length;i++)
+                            {   
+                                console.log(enemyCombatants[i])
+                                $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
+                                $(`#${enemyCombatants[i]}`).empty();
+                                $("#character2").clone().appendTo(".current_character")
+                                $("#character2").empty()
+                            }
+                        }        
                 else if (currentCharacter===3){currentCharacter=character3;}
                 else {currentCharacter=character4;}
             
