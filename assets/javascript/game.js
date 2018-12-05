@@ -32,11 +32,11 @@ var character3 = {
     hp: 150,
     isCurrentCharacter: false,
     isCurrentEnemy: false,
-    isAlive: true
+    isAlive: false
 }
 
 var character4 = {
-    id: 4,
+    id: "character4",
     name: "Velma",
     hp: 80,
     isCurrentCharacter: false,
@@ -100,7 +100,7 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                         $("#character1").empty();
                         for(i=0;i<enemyCombatants.length;i++)
                             {   
-                                $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
+                                $(`#${enemyCombatants[i]}`).clone().appendTo(".possibleEnemies")
                                 $(`#${enemyCombatants[i]}`).empty();
                             }
                     }
@@ -113,7 +113,7 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                             $("#character2").empty();
                             for(i=0;i<enemyCombatants.length;i++)
                             {   
-                                $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
+                                $(`#${enemyCombatants[i]}`).clone().appendTo(".possibleEnemies")
                                 $(`#${enemyCombatants[i]}`).empty();
                                // $("#character2").clone().appendTo(".current_character")
                                 //$("#character2").empty()
@@ -128,7 +128,7 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                     $("#character3").empty();
                     for(i=0;i<enemyCombatants.length;i++)
                         {   
-                            $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
+                            $(`#${enemyCombatants[i]}`).clone().appendTo(".possibleEnemies")
                             $(`#${enemyCombatants[i]}`).empty();
                         }
                 }
@@ -141,8 +141,10 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                     $("#character4").empty();
                     for(i=0;i<enemyCombatants.length;i++)
                         {   
-                            $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
+                            if(enemyCombatants.isAlive===true){
+                            $(`#${enemyCombatants[i]}`).clone().appendTo(".possibleEnemies")
                             $(`#${enemyCombatants[i]}`).empty();
+                            }
                         }
                 }
             
@@ -165,17 +167,31 @@ $("#character4HP").append(`HP: ${character4.hp}`)
         $(".character").on("click", function()
         {
             //console.log("possibleEnemies")
-            if(currentEnemy==="")
+            //if(currentCharacter!=currentEnemy){
+            //console.log(characterList)
+            console.log(`this.id ${this.id}`)
+            console.log(currentCharacter)
+            if(currentEnemy==="" && this.id!==currentCharacter)
                 {
                 console.log(this.id)
                 currentEnemy=this.id;
                 console.log(currentEnemy)
-               console.log(characterList[currentEnemy])
-        }
+                    if(currentEnemy==="character1")
+                    {
+                        character1.isCurrentEnemy=true;
+                        console.log(character1.isCurrentEnemy)
+                        //enemyCombatants=enemyCombatants.pop()
+                        console.log(enemyCombatants)
+                        $("#character1.character").attr("div", "currentEnemy")
+                        $("#character1.character").clone().appendTo("#currentEnemy")
+                        //$("#character1.character").empty()
+                    }
+                }
+        })
     })
     });
     
-});
+//});
 
     $("#attack").on("click", function()
     {
