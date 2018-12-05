@@ -1,5 +1,11 @@
 .character {
     padding: 10px;
-    margin: 10px;
+    /*margin: 10px 10px 10px 10px;*/
+    width: 150px;
+    float: left;
 }
 
+#possibleEnemies {
+    height: 100px;
+    width: 100%
+}
