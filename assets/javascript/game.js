@@ -1,7 +1,8 @@
 var character=$(".character")
+var possibleEnemies=$("#possibleEnemies")
 var currentCharacter=""
 var enemyCombatants=[]
-var currentEnemy
+var currentEnemy=""
 var hitPoints
 var enemyHitpoints
 
@@ -89,9 +90,7 @@ $("#character4HP").append(`HP: ${character4.hp}`)
 
         if (currentCharacter==="")
         {
-            console.log(this.id)
             currentCharacter=this.id;
-            console.log(currentCharacter)
                 if(currentCharacter==="character1")
                     {
                         currentCharacter=character1;
@@ -101,7 +100,6 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                         $("#character1").empty();
                         for(i=0;i<enemyCombatants.length;i++)
                             {   
-                                console.log(enemyCombatants[i])
                                 $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
                                 $(`#${enemyCombatants[i]}`).empty();
                             }
@@ -109,23 +107,47 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                 else if (currentCharacter==="character2")
                     {
                             currentCharacter=character2;
-                            character2.is
+                            character2.isCurrentCharacter=true;
                             enemyCombatants=["character1","character3","character4"]
                             $("#character2").clone().appendTo(".current_character")
                             $("#character2").empty();
-                        for(i=0;i<enemyCombatants.length;i++)
+                            for(i=0;i<enemyCombatants.length;i++)
                             {   
-                                console.log(enemyCombatants[i])
                                 $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
                                 $(`#${enemyCombatants[i]}`).empty();
-                                $("#character2").clone().appendTo(".current_character")
-                                $("#character2").empty()
+                               // $("#character2").clone().appendTo(".current_character")
+                                //$("#character2").empty()
                             }
                         }        
-                else if (currentCharacter===3){currentCharacter=character3;}
-                else {currentCharacter=character4;}
+                else if (currentCharacter==="character3")
+                {
+                    currentCharacter=character3;
+                    character3.isCurrentCharacter=true
+                    enemyCombatants=["character1","character2","character4"]
+                    $("#character3").clone().appendTo(".current_character")
+                    $("#character3").empty();
+                    for(i=0;i<enemyCombatants.length;i++)
+                        {   
+                            $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
+                            $(`#${enemyCombatants[i]}`).empty();
+                        }
+                }
+                else 
+                {
+                    currentCharacter=character4;
+                    character4.isCurrentCharacter=true
+                    enemyCombatants=["character1","character2","character3"]
+                    $("#character4").clone().appendTo(".current_character")
+                    $("#character4").empty();
+                    for(i=0;i<enemyCombatants.length;i++)
+                        {   
+                            $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
+                            $(`#${enemyCombatants[i]}`).empty();
+                        }
+                }
             
-            console.log(currentCharacter.name)
+            console.log(`Current Character: ${currentCharacter.name}`)
+            console.log(enemyCombatants)
             //console.log(this)
             
             //$(".character").empty();
@@ -139,7 +161,20 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                     }
                     */
         }
+
+        $(".character").on("click", function()
+        {
+            //console.log("possibleEnemies")
+            if(currentEnemy==="")
+                {
+                console.log(this.id)
+                currentEnemy=this.id;
+                console.log(currentEnemy)
+               console.log(characterList[currentEnemy])
+        }
+    })
     });
+    
 });
 
     $("#attack").on("click", function()
