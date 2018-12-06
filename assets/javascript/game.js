@@ -3,12 +3,12 @@ var possibleEnemies=$("#possibleEnemies")
 var currentCharacter=""
 var currentEnemy=""
 var enemyCombatants=[]
-var hitPoints
-var enemyHitpoints
+//var hitPoints
+//var enemyHitpoints
 
 
 var character1 = {
-    id: 1,
+    id: "character1",
     name: "Freddy",
     hp: 120,
     isCurrentCharacter: false,
@@ -49,6 +49,13 @@ var character4 = {
 }
 
 var characterList=[character1, character2, character3, character4]
+
+var characterObject = {
+    "character1": character1,
+    "character2": character2,
+    "character3": character3,
+    "character4": character4
+}
 
 function moveTiles() 
     {
@@ -110,7 +117,7 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                         currentCharacter=character1;
                         character1.isCurrentCharacter=true
                         enemyCombatants=["character2","character3","character4"]
-                        $("#character1").clone().appendTo(".current_character")
+                        $("#character1").clone().appendTo(".current_character").attr("class", "current_character")
                         $("#character1").empty();
                         for(i=0;i<enemyCombatants.length;i++)
                             {   
@@ -155,10 +162,10 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                     $("#character4").empty();
                     for(i=0;i<enemyCombatants.length;i++)
                         {   
-                            if(enemyCombatants.isAlive===true){
+                            //if(enemyCombatants.isAlive===true){
                             $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
                             $(`#${enemyCombatants[i]}`).empty();
-                            }
+                            //}
                         }
                 }
             
@@ -191,14 +198,14 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                 {   
             
                 console.log(this.id)
-                currentEnemy=this.id;
+                currentEnemy=characterObject[this.id];
                 console.log(currentEnemy)
-                    if(currentEnemy===`character${i+1}`)
+                    if(currentEnemy===characterList[i])
                     {
                         character1.isCurrentEnemy=true;
                         console.log(currentEnemy.name);
-                        console.log(`${currentCharacter.name} VS ${characterList[i].name}`)
-                        console.log(typeof(currentEnemy))
+                        console.log(`${currentCharacter.name} VS ${currentEnemy.name}`)
+                        //console.log(typeof(currentEnemy))
                         console.log(currentEnemy.name)
                         
                         $(`#character${i+1}.character`).clone().appendTo("#currentEnemy").attr("id", "currentEnemy")
@@ -218,5 +225,7 @@ $("#character4HP").append(`HP: ${character4.hp}`)
     $("#attack").on("click", function()
     {
         console.log("attack!")
-        
+        currentCharacter.hp-=10;
+        console.log(currentCharacter.hp)
+        $(`#${currentCharacter.id}HP`).append(`HP: ${currentCharacter.hp}`)
     })
