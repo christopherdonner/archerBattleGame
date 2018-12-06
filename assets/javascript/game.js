@@ -1,8 +1,8 @@
 var character=$(".character")
 var possibleEnemies=$("#possibleEnemies")
 var currentCharacter=""
-var enemyCombatants=[]
 var currentEnemy=""
+var enemyCombatants=[]
 var hitPoints
 var enemyHitpoints
 
@@ -12,8 +12,9 @@ var character1 = {
     name: "Freddy",
     hp: 120,
     isCurrentCharacter: false,
-    currentEnemy: false,
-    isAlive: true
+    isCurrentEnemy: false,
+    isAlive: true,
+    attackPower: 9
 
 }
 
@@ -23,7 +24,8 @@ var character2 = {
     hp: 100,
     isCurrentCharacter: false,
     isCurrentEnemy: false,
-    isAlive: true
+    isAlive: true,
+    attackPower: 7
 }
 
 var character3 = {
@@ -32,7 +34,8 @@ var character3 = {
     hp: 150,
     isCurrentCharacter: false,
     isCurrentEnemy: false,
-    isAlive: false
+    isAlive: false,
+    attackPower: 8
 }
 
 var character4 = {
@@ -41,7 +44,8 @@ var character4 = {
     hp: 80,
     isCurrentCharacter: false,
     isCurrentEnemy: false,
-    isAlive: true
+    isAlive: true,
+    attackPower: 11
 }
 
 var characterList=[character1, character2, character3, character4]
@@ -71,6 +75,15 @@ $(document).ready(function()
     }
 */
 
+for(i=0;i<characterList.length;i++)
+{
+$(`#character${i+1}Name`).append(characterList[i].name)
+console.log(characterList[i].name)
+$(`#character${i+1}HP`).append(`HP: ${characterList[i].hp}`)
+console.log(characterList[i].hp)
+}
+
+/*
 $("#character1Name").append(character1.name)
 $("#character1HP").append(`HP: ${character1.hp}`)
 
@@ -82,6 +95,7 @@ $("#character3HP").append(`HP: ${character3.hp}`)
 
 $("#character4Name").append(character4.name)
 $("#character4HP").append(`HP: ${character4.hp}`)
+*/
 
     $(".character").on("click", function()
     {
@@ -100,7 +114,7 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                         $("#character1").empty();
                         for(i=0;i<enemyCombatants.length;i++)
                             {   
-                                $(`#${enemyCombatants[i]}`).clone().appendTo(".possibleEnemies")
+                                $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
                                 $(`#${enemyCombatants[i]}`).empty();
                             }
                     }
@@ -113,7 +127,7 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                             $("#character2").empty();
                             for(i=0;i<enemyCombatants.length;i++)
                             {   
-                                $(`#${enemyCombatants[i]}`).clone().appendTo(".possibleEnemies")
+                                $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
                                 $(`#${enemyCombatants[i]}`).empty();
                                // $("#character2").clone().appendTo(".current_character")
                                 //$("#character2").empty()
@@ -128,11 +142,11 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                     $("#character3").empty();
                     for(i=0;i<enemyCombatants.length;i++)
                         {   
-                            $(`#${enemyCombatants[i]}`).clone().appendTo(".possibleEnemies")
+                            $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
                             $(`#${enemyCombatants[i]}`).empty();
                         }
                 }
-                else 
+                else  if (currentCharacter==="character4")
                 {
                     currentCharacter=character4;
                     character4.isCurrentCharacter=true
@@ -142,7 +156,7 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                     for(i=0;i<enemyCombatants.length;i++)
                         {   
                             if(enemyCombatants.isAlive===true){
-                            $(`#${enemyCombatants[i]}`).clone().appendTo(".possibleEnemies")
+                            $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
                             $(`#${enemyCombatants[i]}`).empty();
                             }
                         }
@@ -170,30 +184,39 @@ $("#character4HP").append(`HP: ${character4.hp}`)
             //if(currentCharacter!=currentEnemy){
             //console.log(characterList)
             console.log(`this.id ${this.id}`)
-            console.log(currentCharacter)
-            if(currentEnemy==="" && this.id!==currentCharacter)
+            //console.log(currentCharacter)
+            if(currentEnemy==="")
                 {
+                for(i=0;i<enemyCombatants.length+1;i++)
+                {   
+            
                 console.log(this.id)
                 currentEnemy=this.id;
                 console.log(currentEnemy)
-                    if(currentEnemy==="character1")
+                    if(currentEnemy===`character${i+1}`)
                     {
                         character1.isCurrentEnemy=true;
-                        console.log(character1.isCurrentEnemy)
-                        //enemyCombatants=enemyCombatants.pop()
-                        console.log(enemyCombatants)
-                        $("#character1.character").attr("div", "currentEnemy")
-                        $("#character1.character").clone().appendTo("#currentEnemy")
-                        //$("#character1.character").empty()
+                        console.log(currentEnemy.name);
+                        console.log(`${currentCharacter.name} VS ${characterList[i].name}`)
+                        console.log(typeof(currentEnemy))
+                        console.log(currentEnemy.name)
+                        
+                        $(`#character${i+1}.character`).clone().appendTo("#currentEnemy").attr("id", "currentEnemy")
+                        //$("#character1.character").attr("id", "currentEnemy")
+                        $(`#character${i+1}.character`).empty()
                     }
                 }
+            }
+            //console.log(`${currentCharacter.name} VS ${currentEnemy.name}`)
         })
     })
     });
+   
     
 //});
 
     $("#attack").on("click", function()
     {
         console.log("attack!")
+        
     })
