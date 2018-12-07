@@ -8,14 +8,14 @@ var enemyCombatants=[]
 
 
 var character1 = {
-    id: "character1",
+    id: 1,
     name: "Freddy",
     hp: 120,
     isCurrentCharacter: false,
     isCurrentEnemy: false,
     isAlive: true,
     attackPower: 9,
-    currentAttackPower: 0,
+    currentAttackPower: 9,
     counterAttackPower: 18
 
 }
@@ -28,7 +28,7 @@ var character2 = {
     isCurrentEnemy: false,
     isAlive: true,
     attackPower: 7,
-    currentAttackPower: 0,
+    currentAttackPower: 7,
     counterAttackPower: 9
 }
 
@@ -40,7 +40,7 @@ var character3 = {
     isCurrentEnemy: false,
     isAlive: false,
     attackPower: 8,
-    currentAttackPower: 0,
+    currentAttackPower: 8,
     counterAttackPower: 22
 }
 
@@ -52,7 +52,7 @@ var character4 = {
     isCurrentEnemy: false,
     isAlive: true,
     attackPower: 11,
-    currentAttackPower: 0,
+    currentAttackPower: 11,
     counterAttackPower: 18
 }
 
@@ -234,12 +234,22 @@ $("#character4HP").append(`HP: ${character4.hp}`)
     $("#attack").on("click", function()
     {
         console.log("attack!")
-        currentCharacter.hp-=10;
+        //currentCharacter.hp-=10;
         console.log(currentCharacter.hp)
         
-        $("#eventLog").text(`${currentCharacter.name} hits ${currentEnemy.name} for ${currentCharacter.attackPower}`);
-        currentEnemy.HP-=currentCharacter
-        $(`#${currentCharacter.id}HP`).text(`HP: ${currentCharacter.hp}`);
-        $(`#${currentEnemy.id}HP`).text(`HP ${currentEnemy.hp}`)
+        $("#eventLog").text(`${currentCharacter.name} hits ${currentEnemy.name} for ${currentCharacter.currentAttackPower}`);
+        $("#eventLog").append(`<br>${currentEnemy.name} hits ${currentCharacter.name} for ${currentEnemy.counterAttackPower}<br>`);
+        currentCharacter.hp-=currentEnemy.counterAttackPower
+        currentEnemy.hp-=currentCharacter.currentAttackPower
+        console.log(`currentEnemy ${currentEnemy.id}`)
+        console.log(currentEnemy.hp)
+        console.log(currentCharacter.id)
+        $(`#character${currentCharacter.id}HP`).text(`HP: ${currentCharacter.hp}`);
+        //$(`#${currentCharacter.id}HP`).text(`HP: ${currentCharacter.hp}`);
+        $(`#character${currentEnemy.id}HP`).text(`HP ${currentEnemy.hp}`)
         currentCharacter.currentAttackPower+=currentCharacter.attackPower;
+            if(currentCharacter.hp<0)
+            {
+                alert('you lose!')
+            }
     })
