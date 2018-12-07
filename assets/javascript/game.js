@@ -276,11 +276,11 @@ console.log(characterList[i].hp)
         //$(`#${currentCharacter.id}HP`).text(`HP: ${currentCharacter.hp}`);
         $(`#character${currentEnemy.id}HP`).text(`HP ${currentEnemy.hp}`)
         currentCharacter.currentAttackPower+=currentCharacter.attackPower;
-            if(currentCharacter.hp<0)
+            if(currentCharacter.hp<=0)
             {
                 alert('you lose!')
             }
-            if(currentEnemy.hp<0)
+            if(currentEnemy.hp<=0)
             {
                 $("#currentEnemy").empty()
                 $("#eventLog").html(`${currentEnemy.name} defeated!<br>Choose your next opponent!`)
