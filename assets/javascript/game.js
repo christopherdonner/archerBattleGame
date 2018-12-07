@@ -38,14 +38,14 @@ var character3 = {
     hp: 150,
     isCurrentCharacter: false,
     isCurrentEnemy: false,
-    isAlive: false,
+    isAlive: true,
     attackPower: 8,
     currentAttackPower: 8,
     counterAttackPower: 22
 }
 
 var character4 = {
-    id: "character4",
+    id: 4,
     name: "Velma",
     hp: 80,
     isCurrentCharacter: false,
@@ -79,6 +79,43 @@ function drawCombatants()
         }
     }
 
+function enemySelect(){
+$(".character").on("click", function()
+        {
+            //console.log("possibleEnemies")
+            console.log(`${currentCharacter.id} ${characterObject[this.id]}`)
+            if(currentCharacter.id!=characterObject[this.id])
+            {
+            //console.log(characterList)
+            console.log(`this.id ${this.id}`)
+            //console.log(currentCharacter)
+            if(currentEnemy==="")
+                {
+                for(i=0;i<enemyCombatants.length+1;i++)
+                {   
+            
+                console.log(this.id)
+                currentEnemy=characterObject[this.id];
+                console.log(currentEnemy)
+                    if(currentEnemy===characterList[i])
+                    {
+                        character1.isCurrentEnemy=true;
+                        console.log(currentEnemy.name);
+                        console.log(`${currentCharacter.name} VS ${currentEnemy.name}`)
+                        //console.log(typeof(currentEnemy))
+                        console.log(currentEnemy.name)
+                        
+                        $(`#character${i+1}.character`).clone().appendTo("#currentEnemy").attr("id", "currentEnemy")
+                        //$("#character1.character").attr("id", "currentEnemy")
+                        $(`#character${i+1}.character`).empty()
+                    }
+                }
+            }
+        }
+            //console.log(`${currentCharacter.name} VS ${currentEnemy.name}`)
+        })
+    }
+
 $(document).ready(function() 
 {
 /*
@@ -97,20 +134,6 @@ console.log(characterList[i].name)
 $(`#character${i+1}HP`).text(`HP: ${characterList[i].hp}`)
 console.log(characterList[i].hp)
 }
-
-/*
-$("#character1Name").append(character1.name)
-$("#character1HP").append(`HP: ${character1.hp}`)
-
-$("#character2Name").append(character2.name)
-$("#character2HP").append(`HP: ${character2.hp}`)
-
-$("#character3Name").append(character3.name)
-$("#character3HP").append(`HP: ${character3.hp}`)
-
-$("#character4Name").append(character4.name)
-$("#character4HP").append(`HP: ${character4.hp}`)
-*/
 
     $(".character").on("click", function()
     {
@@ -194,10 +217,14 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                     */
         }
 
+        enemySelect();
+        /*
         $(".character").on("click", function()
         {
             //console.log("possibleEnemies")
-            //if(currentCharacter!=currentEnemy){
+            console.log(`${currentCharacter.id} ${characterObject[this.id]}`)
+            if(currentCharacter.id!=characterObject[this.id])
+            {
             //console.log(characterList)
             console.log(`this.id ${this.id}`)
             //console.log(currentCharacter)
@@ -223,8 +250,9 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                     }
                 }
             }
+        }
             //console.log(`${currentCharacter.name} VS ${currentEnemy.name}`)
-        })
+        })*/
     })
     });
    
@@ -251,5 +279,13 @@ $("#character4HP").append(`HP: ${character4.hp}`)
             if(currentCharacter.hp<0)
             {
                 alert('you lose!')
+            }
+            if(currentEnemy.hp<0)
+            {
+                $("#currentEnemy").empty()
+                $("#eventLog").html(`${currentEnemy.name} defeated!<br>Choose your next opponent!`)
+                currentEnemy.isAlive=false;
+                currentEnemy=""
+                enemySelect();
             }
     })
