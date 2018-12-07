@@ -14,7 +14,9 @@ var character1 = {
     isCurrentCharacter: false,
     isCurrentEnemy: false,
     isAlive: true,
-    attackPower: 9
+    attackPower: 9,
+    currentAttackPower: 0,
+    counterAttackPower: 18
 
 }
 
@@ -25,7 +27,9 @@ var character2 = {
     isCurrentCharacter: false,
     isCurrentEnemy: false,
     isAlive: true,
-    attackPower: 7
+    attackPower: 7,
+    currentAttackPower: 0,
+    counterAttackPower: 9
 }
 
 var character3 = {
@@ -35,7 +39,9 @@ var character3 = {
     isCurrentCharacter: false,
     isCurrentEnemy: false,
     isAlive: false,
-    attackPower: 8
+    attackPower: 8,
+    currentAttackPower: 0,
+    counterAttackPower: 22
 }
 
 var character4 = {
@@ -45,7 +51,9 @@ var character4 = {
     isCurrentCharacter: false,
     isCurrentEnemy: false,
     isAlive: true,
-    attackPower: 11
+    attackPower: 11,
+    currentAttackPower: 0,
+    counterAttackPower: 18
 }
 
 var characterList=[character1, character2, character3, character4]
@@ -84,9 +92,9 @@ $(document).ready(function()
 
 for(i=0;i<characterList.length;i++)
 {
-$(`#character${i+1}Name`).append(characterList[i].name)
+$(`#character${i+1}Name`).text(characterList[i].name)
 console.log(characterList[i].name)
-$(`#character${i+1}HP`).append(`HP: ${characterList[i].hp}`)
+$(`#character${i+1}HP`).text(`HP: ${characterList[i].hp}`)
 console.log(characterList[i].hp)
 }
 
@@ -121,6 +129,7 @@ $("#character4HP").append(`HP: ${character4.hp}`)
                         $("#character1").empty();
                         for(i=0;i<enemyCombatants.length;i++)
                             {   
+                                //if(enemyCombatants.)
                                 $(`#${enemyCombatants[i]}`).clone().appendTo("#possibleEnemies")
                                 $(`#${enemyCombatants[i]}`).empty();
                             }
@@ -227,5 +236,10 @@ $("#character4HP").append(`HP: ${character4.hp}`)
         console.log("attack!")
         currentCharacter.hp-=10;
         console.log(currentCharacter.hp)
-        $(`#${currentCharacter.id}HP`).append(`HP: ${currentCharacter.hp}`)
+        
+        $("#eventLog").text(`${currentCharacter.name} hits ${currentEnemy.name} for ${currentCharacter.attackPower}`);
+        currentEnemy.HP-=currentCharacter
+        $(`#${currentCharacter.id}HP`).text(`HP: ${currentCharacter.hp}`);
+        $(`#${currentEnemy.id}HP`).text(`HP ${currentEnemy.hp}`)
+        currentCharacter.currentAttackPower+=currentCharacter.attackPower;
     })
