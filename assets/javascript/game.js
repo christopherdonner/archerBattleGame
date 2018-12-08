@@ -3,6 +3,7 @@ var possibleEnemies=$("#possibleEnemies")
 var currentCharacter=""
 var currentEnemy=""
 var enemyCombatants=[]
+var img="<img>"
 
 
 var character1 = {
@@ -65,6 +66,7 @@ var characterObject = {
 
 function enemySelect()
 {
+$(img).css("border-color", "red")
 $(".character").on("click", function()
     {
         
@@ -112,10 +114,11 @@ function reset()
     }*/
     character1.hp=120;
     character2.hp=100;
-    character3.hp=150;
-    character4.hp=80;
+    character3.hp=130;
+    character4.hp=140;
     //$("#currentCharacter").clear();
     drawCharacters();
+    location.reload();
 }
 
 $(document).ready(function() 
@@ -123,6 +126,7 @@ $(document).ready(function()
 
 drawCharacters();
 
+//Character Select
 $("#eventLog").text("Choose your character!")
     $(".character").on("click", function()
     {
