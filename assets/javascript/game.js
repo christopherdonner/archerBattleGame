@@ -22,13 +22,13 @@ var character1 = {
 var character2 = {
     id: 2,
     name: "Lana",
-    hp: 100,
+    hp: 115,
     isCurrentCharacter: false,
     isCurrentEnemy: false,
     isAlive: true,
     attackPower: 12,
     currentAttackPower: 12,
-    counterAttackPower: 9
+    counterAttackPower: 14
 }
 
 var character3 = {
@@ -40,7 +40,7 @@ var character3 = {
     isAlive: true,
     attackPower: 8,
     currentAttackPower: 8,
-    counterAttackPower: 13
+    counterAttackPower: 16
 }
 
 var character4 = {
@@ -51,8 +51,8 @@ var character4 = {
     isCurrentEnemy: false,
     isAlive: true,
     attackPower: 11,
-    currentAttackPower: 11,
-    counterAttackPower: 11
+    currentAttackPower: 7,
+    counterAttackPower: 17
 }
 
 var characterList=[character1, character2, character3, character4]
@@ -209,11 +209,18 @@ $("#attack").on("click", function()
                 reset();
             }
             if(currentEnemy.hp<=0)
+            if (enemyCombatants[0].isAlive===false && enemyCombatants[1].alive===false && enemyCombatants[2]===false)
+            {
+                alert("You WIN!!");
+                reset();
+            }
+            else
             {
                 $("#currentEnemy").empty()
                 $("#eventLog").html(`${currentEnemy.name} defeated!<br>Choose your next opponent!`)
                 currentEnemy.isAlive=false;
                 currentEnemy=""
+               
                 enemySelect();
             }
         }
